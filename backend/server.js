@@ -14,15 +14,16 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 //middleware
+app.use(cors({
+    origin: "http://localhost:5173", //can make requests to a different origin (domain, port, or protocol) from frontend to backend
+}))
 app.use(express.json());
 app.use((req,res,next) =>{
     console.log(`request method is ${req.method} & url is ${req.url}`);
     next();
 });
 app.use(rateLimiter);
-app.use(cors({
-    origin: "http://localhost:5173",
-}))
+
 
 
 app.use("/api/notes",notesRoutes);
