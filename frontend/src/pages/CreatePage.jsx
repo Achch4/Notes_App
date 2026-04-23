@@ -1,14 +1,42 @@
-import axios from "axios";
 import { ArrowLeftIcon } from "lucide-react";
 import React, { useState } from "react";
-import { Link } from "react-router";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router";
+import api from "../libs/axios";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {};
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();// won't refresh
+
+    if (!title.trim() || !content.trim()) {
+      toast.error("All fields are required");
+      return;
+    }
+    setLoading(true);
+    try {
+      await api.post("/notes", { title, content });
+      toast.success("Note created successfully");
+      navigate("/");
+    } catch (error) {
+      console.log("error creating note", error);
+      if (error.response.status === 429) {
+        toast.error("creating too many notes slow down", {
+          duration: 4000,
+          icon: "**",
+        });
+      } else {
+        toast.error("Failed to create note");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-base-200 ">
@@ -42,11 +70,15 @@ const CreatePage = () => {
                     placeholder="Write your note here..."
                     className="textarea textarea-bordered h-32"
                     value={content}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => setContent(e.target.value)}
                   />
                   <div className="card-actions justify-end">
-                    <button type="submit" className="btn btn-primary mt-4" disabled={loading}>
-                      {loading ? "Creating...":"Create Note"}
+                    <button
+                      type="submit"
+                      className="btn btn-primary mt-4"
+                      disabled={loading}
+                    >
+                      {loading ? "Creating..." : "Create Note"}
                     </button>
                   </div>
                 </div>
@@ -60,3 +92,9 @@ const CreatePage = () => {
 };
 
 export default CreatePage;
+
+// const [id, setId] = useState();
+
+// const handleDelete = async () => {
+//   const delete = await api.delete("/notes",{id})
+// }
