@@ -9,7 +9,7 @@ const CreatePage = () => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();// navigate to pages
 
   const handleSubmit = async (e) => {
     e.preventDefault();// won't refresh
@@ -28,7 +28,7 @@ const CreatePage = () => {
       if (error.response.status === 429) {
         toast.error("creating too many notes slow down", {
           duration: 4000,
-          icon: "**",
+          icon: "💀",
         });
       } else {
         toast.error("Failed to create note");
@@ -93,8 +93,3 @@ const CreatePage = () => {
 
 export default CreatePage;
 
-// const [id, setId] = useState();
-
-// const handleDelete = async () => {
-//   const delete = await api.delete("/notes",{id})
-// }
