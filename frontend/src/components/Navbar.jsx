@@ -2,7 +2,7 @@ import { PlusIcon } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
-const Navbar = () => {
+const Navbar = ({ searchQuery, setSearchQuery }) => {
   return (
     <header className="bg-base-300 border-b border-base-content/10">
       <div className="mx-auto max-w-6xl p-4">
@@ -10,6 +10,12 @@ const Navbar = () => {
           <h1 className="text-3xl font-bold text-primary font-mono tracking-tight">
             Thinkboard
           </h1>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
           <div className="flex items-center gap-4">
             <Link to={"/create"} className="btn btn-primary">
               <PlusIcon className="size-5" />
@@ -21,5 +27,4 @@ const Navbar = () => {
     </header>
   );
 };
-
 export default Navbar;
