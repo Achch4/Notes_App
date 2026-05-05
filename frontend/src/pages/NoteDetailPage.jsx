@@ -13,6 +13,10 @@ const NoteDetailPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
+      fetchNote();
+  }, [id]);
+  console.log({ note });
+  
     const fetchNote = async () => {
       try {
         const res = await api.get(`/notes/${id}`);
@@ -24,9 +28,7 @@ const NoteDetailPage = () => {
         setLoading(false);
       }
     };
-    fetchNote();
-  }, [id]);
-  console.log({ note });
+  
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note")) return;

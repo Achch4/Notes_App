@@ -13,6 +13,9 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    fetchNotes();
+  }, []);
+  
     const fetchNotes = async () => {
       try {
         const res = await api.get("/notes"); //calling axios directly
@@ -31,8 +34,7 @@ const HomePage = () => {
         setLoading(false);
       }
     };
-    fetchNotes();
-  }, []);
+    
 
   const filteredNotes = notes.filter(
     (note) =>
