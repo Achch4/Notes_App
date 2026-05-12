@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import api from "../libs/axios";
 import toast from "react-hot-toast";
 import { LoaderIcon, ArrowLeftIcon, Trash2Icon } from "lucide-react";
+import { Camera } from 'lucide-react';
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
@@ -70,19 +71,20 @@ const NoteDetailPage = () => {
     );
   }
   return (
+    
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <Link to="/" className="btn btn-ghost">
-              <ArrowLeftIcon className="h-5 w-5" />
+              <ArrowLeftIcon className="h-6 w-6" />
               Back to Notes
             </Link>
             <button
               onClick={handleDelete}
               className="btn btn-error btn-outline"
             >
-              <Trash2Icon className="h-5 w-5" />
+              <Trash2Icon className="h-6 w-6" />
               Delete Note
             </button>
           </div>
@@ -127,6 +129,7 @@ const NoteDetailPage = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
