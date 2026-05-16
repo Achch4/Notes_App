@@ -1,4 +1,4 @@
-import { PenSquareIcon, Trash2Icon } from "lucide-react";
+import { PenSquareIcon, Trash2Icon, Pin } from "lucide-react";
 import { Link } from "react-router";
 import { formatDate } from "../libs/utils";
 import api from "../libs/axios";
@@ -26,6 +26,8 @@ const NoteCard = ({ note, setNotes }) => {
       border-t-4 border-solid border-[#c2148e80]"
     >
       <div className="card-body">
+        <Pin className="size-4"/>
+       
         <h3 className="card-title text-base-content">{note.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">

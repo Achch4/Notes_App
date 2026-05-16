@@ -12,6 +12,7 @@ const HomePage = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isPinned, setIsPinned] = useState(false);
 
   useEffect(() => {
     fetchNotes();
