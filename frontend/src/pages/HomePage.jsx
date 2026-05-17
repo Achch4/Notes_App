@@ -36,8 +36,8 @@ const HomePage = () => {
         setLoading(false);
       }
     };
-    
-
+  
+  
   const filteredNotes = notes.filter(
     (note) =>
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -13,7 +13,6 @@ const App = () => {
         <Route path="/create" element={<CreatePage />}></Route>
         <Route path="/note/:id" element={<NoteDetailPage />}></Route>
       </Routes>
-      <div className="bg-red-600"><p>hello</p></div>
     </div>
   );
 };
