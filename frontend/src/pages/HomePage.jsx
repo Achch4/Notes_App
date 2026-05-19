@@ -17,27 +17,26 @@ const HomePage = () => {
   useEffect(() => {
     fetchNotes();
   }, []);
-  
-    const fetchNotes = async () => {
-      try {
-        const res = await api.get("/notes"); //calling axios directly
-        console.log(res.data);
-        setNotes(res.data);
-        setIsRateLimited(false);
-      } catch (error) {
-        console.log("error fetching notes");
-        console.log(error);
-        if (error.response?.status === 429) {
-          setIsRateLimited(true);
-        } else {
-          toast.error("failed to import notes");
-        }
-      } finally {
-        setLoading(false);
+
+  const fetchNotes = async () => {
+    try {
+      const res = await api.get("/notes"); //calling axios directly
+      console.log(res.data);
+      setNotes(res.data);
+      setIsRateLimited(false);
+    } catch (error) {
+      console.log("error fetching notes");
+      console.log(error);
+      if (error.response?.status === 429) {
+        setIsRateLimited(true);
+      } else {
+        toast.error("failed to import notes");
       }
-    };
-  
-  
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredNotes = notes.filter(
     (note) =>
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -57,9 +56,22 @@ const HomePage = () => {
         {filteredNotes.length === 0 && !isRateLimited && <NotesNotFound />}
         {filteredNotes.length > 0 && !isRateLimited && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNotes.map((note) => (
-              <NoteCard key={note._id} note={note} setNotes={setNotes} />
-            ))}
+            <h1>Pinned Notes</h1>
+            {filteredNotes
+              .filter((note) => note.isPinned)
+              .map((note) => (
+                <NoteCard key={note._id} note={note} setNotes={setNotes} />
+              ))}
+          </div>
+        )}
+        <br />
+        {filteredNotes.length > 0 && !isRateLimited && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredNotes
+              .filter((note) => !(note.isPinned))
+              .map((note) => (
+                <NoteCard key={note._id} note={note} setNotes={setNotes} />
+              ))}
           </div>
         )}
       </div>

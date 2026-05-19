@@ -19,14 +19,27 @@ const NoteCard = ({ note, setNotes }) => {
       toast.error("failed to delete the note");
     }
   };
+
+  const handleIsPinned = async (e, id) => {
+    try {
+      await api.put(`/notes/${id}`);
+      toast.Pin("Note Pinned");
+    } catch (error) {
+      console.log("error in handleIsPinned",error);
+      toast.error("something went wrong");
+    }
+  }
+
+
   return (
     <div
       className="card bg-base-100 hover:shadow-lg transition-all duration-200 
       border-t-4 border-solid border-[#c2148e80]"
     >
       <div className="card-body">
+        <button onClick={(e) => handleIsPinned(e, note._id)}>
         <Pin className="size-4"/>
-       
+       </button>
         <h3 className="card-title text-base-content">{note.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">

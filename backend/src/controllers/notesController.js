@@ -65,3 +65,16 @@ export const deleteNote = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+export const updateIsPinned = async (req,res) =>{
+  try {
+    const updateIsPinned = await Note.findById(req.params.id);
+      updateIsPinned.isPinned = !updateIsPinned.isPinned; //toggle isPinned Property
+      await updateIsPinned.save();
+    
+  } catch (error) {
+    console.error("Error in updateIsPinned Controller",error);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
