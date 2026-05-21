@@ -21,15 +21,20 @@ const NoteCard = ({ note, setNotes }) => {
   };
 
   const handleIsPinned = async (e, id) => {
+    e.preventDefault();
     try {
-      await api.put(`/notes/${id}`);
-      toast.Pin("Note Pinned");
+      await api.patch(`/notes/${id}`);
+      setNotes((prev) =>
+        prev.map((note) =>
+          note._id === id ? { ...note, isPinned: !note.isPinned } : note,
+        ),
+      );
+      toast.success("Note Pinned");
     } catch (error) {
-      console.log("error in handleIsPinned",error);
+      console.log("error in handleIsPinned", error);
       toast.error("something went wrong");
     }
-  }
-
+  };
 
   return (
     <div
@@ -38,8 +43,12 @@ const NoteCard = ({ note, setNotes }) => {
     >
       <div className="card-body">
         <button onClick={(e) => handleIsPinned(e, note._id)}>
-        <Pin className="size-4"/>
-       </button>
+          {note.isPinned ? (
+            <Pin className="size-4 fill-current" />
+          ) : (
+            <Pin className="size-4" />
+          )}
+        </button>
         <h3 className="card-title text-base-content">{note.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">
@@ -47,9 +56,8 @@ const NoteCard = ({ note, setNotes }) => {
             {formatDate(new Date(note.createdAt))}
           </span>
           <div className="flex items-center gap-1">
-            <Link
-      to={`/note/${note._id}`}>
-            <PenSquareIcon className="size-4" />
+            <Link to={`/note/${note._id}`}>
+              <PenSquareIcon className="size-4" />
             </Link>
             <button
               className="btn btn-ghost btn-xs text-error"
