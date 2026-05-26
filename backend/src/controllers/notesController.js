@@ -72,7 +72,7 @@ export const updateIsPinned = async (req,res) =>{
     const updateIsPinned = await Note.findById(req.params.id);
       updateIsPinned.isPinned = !updateIsPinned.isPinned; //toggle isPinned Property
       await updateIsPinned.save();
-    
+      res.status(200).json(updateIsPinned);
   } catch (error) {
     console.error("Error in updateIsPinned Controller",error);
     res.status(500).json({message: "Internal Server Error"})

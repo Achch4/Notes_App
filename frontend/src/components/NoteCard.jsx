@@ -21,20 +21,17 @@ const NoteCard = ({ note, setNotes }) => {
   };
 
   const handleIsPinned = async (e, id) => {
-    e.preventDefault();
-    try {
-      await api.patch(`/notes/${id}`);
-      setNotes((prev) =>
-        prev.map((note) =>
-          note._id === id ? { ...note, isPinned: !note.isPinned } : note,
-        ),
-      );
-      toast.success("Note Pinned");
-    } catch (error) {
-      console.log("error in handleIsPinned", error);
-      toast.error("something went wrong");
-    }
-  };
+  e.preventDefault();
+  try {
+   await api.patch(`/notes/${id}`); // or whatever your endpoint is
+    
+    // Update the notes state directly without refetching
+    setNotes((prev) =>prev.map((note) => note._id === id ? { ...note, isPinned: !note.isPinned } : note));
+    toast.success("Note updated");
+  } catch (error) {
+    toast.error("Failed to update note");
+  }
+};
 
   return (
     <div
