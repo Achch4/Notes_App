@@ -27,7 +27,7 @@ const NoteCard = ({ note, setNotes }) => {
     
     // Update the notes state directly without refetching
     setNotes((prev) =>prev.map((note) => note._id === id ? { ...note, isPinned: !note.isPinned } : note));
-    toast.success("Note updated");
+    note.isPinned? toast.success("Note Unpinned"): toast.success("Note Pinned");
   } catch (error) {
     toast.error("Failed to update note");
   }
