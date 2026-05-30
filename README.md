@@ -133,30 +133,6 @@ You can then:
 
 ---
 
-## What I Learned
-
-During this project I gained practical experience with:
-
-- Building RESTful APIs with Express.js
-- MongoDB data modeling using Mongoose
-- React state management and component architecture
-- CRUD operations
-- API integration using Axios
-- Conditional rendering and filtering data
-- Full-stack deployment workflows
-- Responsive UI design with Tailwind CSS
-
----
-
-## Future Improvements
-
-- User authentication and authorization
-- Note categories and tags
-- Dark mode support
-- Rich text editor
-- Note sharing functionality
-
----
 
 ## License
 
