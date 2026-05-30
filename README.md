@@ -66,7 +66,7 @@ Before running this project, make sure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone 
+git clone https://github.com/Achch4/Notes_App.git
 cd notes-app
 ```
 
